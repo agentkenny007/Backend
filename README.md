@@ -1,3 +1,3 @@
 # Buzzwords Backend
 
-Backend for buzzwords app using adonis, heroku, and SQLite.
+Backend for buzzwords app using adonis, heroku, and PostgreSQL
