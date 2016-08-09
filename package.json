@@ -19,6 +19,7 @@
     "adonis-lucid": "^3.0.2",
     "adonis-middleware": "^1.0.7",
     "pg": "^6.0.3",
+    "request": "^2.74.0",
     "youch": "^1.0.1"
   },
   "autoload": {
