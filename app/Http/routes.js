@@ -26,4 +26,4 @@ Route.get('/profile', 'UserController.show').middleware('auth')
 
 // Search Tweets Routes
 
-Route.get('/search/tweets','SearchtweetsController')
+Route.get('/search/tweets','SearchtweetsController.search')
