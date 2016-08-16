@@ -54,52 +54,49 @@ class SearchtweetsController {
         let tweet_data = [];
         //////////////////////////////////////////////
         let promises = [];
+        console.log('1 -----------------------')
         yield rp(options)
             .then(function(res) {
+            	console.log('2 -----------------------')
                 let test = JSON.parse(res.body);
                 twitter_filter(test);
-                // console.log(customTweetobj);  
-
                 customTweetobj.forEach(function(tweet, index) {
-                    // let text = 'text=' + tweet.text;
-                    // let promise = uni.post("https://twinword-sentiment-analysis.p.mashape.com/analyze/")
-                    //     .header("X-Mashape-Key", "")
-                    //     .header("Content-Type", "application/x-www-form-urlencoded")
-                    //     .header("Accept", "application/json")
-                    //     .send(text)
-                    //     // .end(function (result) {
-                    //     //   // console.log(result.status, result.headers, result.body);
-                    //     //   customTweetobj[index].sentiment = result.body;
-                    //     //   // return response.json(customTweetobj)
-                    //     // })
-                    // promises.push(promise);
-
-
                     var options = {
                     	uri: "https://twinword-sentiment-analysis.p.mashape.com/analyze/",
                     	method: 'POST',
                     	headers: {
-                    		"X-Mashape-Key": "",
+                    		"X-Mashape-Key": "wkqoWU6zLymsh1OIAlewgzGpUrskp1j2B2GjsnMQxjNOZu2JH9",
                     		"Content-Type": "application/x-www-form-urlencoded",
                     		"Accept": "application/json"
                     	},
-                    	body: {
+                    	form: {
                     		text: tweet.text
                     	}
                     }
 
-                    let promise = rp(options);
+                    console.log(options.form);
+                    console.log('--------------------------')
 
+                    let promise = rp(options);
                     promises.push(promise);
 
-
                 });
-
+		        return null; // needed since we are inside of a promise resolve
             });
 
-        yield Promise.all(promises).then(res => {
+
+        // Wait for all promises to resolve.
+        Promise.all(promises).then(res => {
+        	console.log('3 -----------------------')
+        	res.forEach( (data, index) => {
+        		customTweetobj[index].sentiment = JSON.parse(data);
+        	});
         	response.json(customTweetobj);
         });
+
+        // response.json(promises);
+
+
 
         // 	response.json({ data: res, cool: true});
         // })
