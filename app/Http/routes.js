@@ -25,5 +25,5 @@ Route.post('/login', 'UserController.login')
 Route.get('/profile', 'UserController.show').middleware('auth')
 
 // Search Tweets Routes
-
 Route.post('/search/tweets','SearchtweetsController.search')
+Route.post('/search','SentimentsController.get')
