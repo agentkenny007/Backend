@@ -65,7 +65,7 @@ class SearchtweetsController {
                     	uri: "https://twinword-sentiment-analysis.p.mashape.com/analyze/",
                     	method: 'POST',
                     	headers: {
-                    		"X-Mashape-Key": "wkqoWU6zLymsh1OIAlewgzGpUrskp1j2B2GjsnMQxjNOZu2JH9",
+                    		"X-Mashape-Key": Env.get("TWIN_TOKEN"),
                     		"Content-Type": "application/x-www-form-urlencoded",
                     		"Accept": "application/json"
                     	},
