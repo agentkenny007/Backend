@@ -17,7 +17,7 @@ class SentimentsController {
                 }
             }, posts, post_filter = function(postArray){
                 posts = postArray
-                    .filter(post => post.type === 'text' || post.type === 'photo')
+                    .filter(post => post.type === 'answer' || post.type === 'photo' || post.type === 'text')
                     .map(post => {
                         return {
                             tumblog: `@${post.blog_name}`,
@@ -25,9 +25,9 @@ class SentimentsController {
                             timestamp: post.timestamp,
                             url: post.short_url,
                             notes: post.note_count,
-                            text: post.caption || post.body
+                            text: post.answer || post.body || post.caption
                         }
-                    })
+                    }).filter(post => post.text && post.text.length > 40)
             }, tumblrReq = {
                 url: 'https://api.tumblr.com/v2/tagged',
                 qs: {
@@ -56,7 +56,7 @@ class SentimentsController {
                 url: 'https://api.twitter.com/1.1/search/tweets.json',
                 resolveWithFullResponse: true,
                 headers: {
-                    'authorization': ENV.get('BEARER_TOKEN')
+                    Authorization: ENV.get('BEARER_TOKEN')
                 },
                 qs: {
                     q: INPUT.q
@@ -78,15 +78,15 @@ class SentimentsController {
             .then(resp =>{
                 post_filter(JSON.parse(resp).response)
                 posts.forEach((post, index)=>{
-                    let options = sentimentReq
-                    post.text = post.text
-                        .toLowerCase().split('. ')
-                        .filter(sentence =>{
-                            let buzzwords = INPUT.q.toLowerCase().split(' ')
-                            for (var i = 0, l = buzzwords.length; i < l; i++)
-                                if (sentence.includes(buzzwords[i])) return true
-                        }).join('. ')
-                    options.form = { text: post.text }
+                    let options = sentimentReq,
+                        text = post.text
+                            .toLowerCase().split('. ')
+                            .filter(sentence =>{
+                                let buzzwords = INPUT.q.toLowerCase().split(' ')
+                                for (var i = 0, l = buzzwords.length; i < l; i++)
+                                    if (sentence.includes(buzzwords[i])) return true
+                            }).join('. ')
+                    options.form = { text: (text ? text : post.text).substr(0, 1500) }
                     promises.push(REQUEST(options))
                 })
                 return null
@@ -94,7 +94,6 @@ class SentimentsController {
 
         // Wait for all promises to resolve.
         Promise.all(promises).then(resp =>{
-        	console.log('3 -----------------------')
         	resp.forEach((data, index)=>{
                 if (tweets[index]) tweets[index].sentiment = JSON.parse(data)
                 else posts[index - tweets.length].sentiment = JSON.parse(data)
