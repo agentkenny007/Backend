@@ -46,6 +46,12 @@ class UserController {
     * update (req, resp) {
 
     }
+
+    * getCampaign (req, resp){
+        const user = request.authUser
+        console.log(user.campaigns().fetch())
+
+    }
 }
 
 module.exports = UserController
