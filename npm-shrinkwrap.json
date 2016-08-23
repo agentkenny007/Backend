@@ -2220,6 +2220,11 @@
         }
       }
     },
+    "ping": {
+      "version": "0.2.0",
+      "from": "ping@latest",
+      "resolved": "https://registry.npmjs.org/ping/-/ping-0.2.0.tgz"
+    },
     "pinkie": {
       "version": "2.0.4",
       "from": "pinkie@>=2.0.0 <3.0.0",

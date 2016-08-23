@@ -1,3 +1,3 @@
-# Buzzwords Backend
+# Grapevine Backend
 
-Backend for buzzwords app using adonis, heroku, and PostgreSQL
+Backend for Grapevine app using Adonis, Heroku, and PostgreSQL  

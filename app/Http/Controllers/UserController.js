@@ -1,36 +1,51 @@
-'use strict';
+'use strict'
 
-const User = use('App/Model/User');
-const Hash = use('Hash');
+const User = use('App/Model/User')
+const Hash = use('Hash')
 
 class UserController {
-    * store(req, resp){
-        const input = req.only('email', 'password');
-        input.password = yield Hash.make(input.password);
-        const user = yield User.create(input);
-        console.log(input);
-        return resp.json(user.toJSON());
-    }
-
-    * login(req, resp){
-        const input = req.only('email', 'password');
+    * login (req, resp) {
+        const input = req.only('email', 'password')
         try {
-            const user = yield User.findBy('email', input.email);
-            if (!user) throw new Error('User not found.');
+            const user = yield User.findBy('email', input.email)
+            if (!user) throw new Error('User not found.')
 
-            const verify = yield Hash.verify(input.password, user.password);
-            if (!verify) throw new Error('Incorrect Password.');
+            const verify = yield Hash.verify(input.password, user.password)
+            if (!verify) throw new Error('Incorrect Password.')
 
-            user.access_token = yield req.auth.generate(user);
-            return resp.json(user.toJSON());
+            user.access_token = yield req.auth.generate(user)
+            return resp.json(user.toJSON())
         } catch(e){
-            return resp.status(401).json({ error: e.message });
+            return resp.status(401).json({ error: e.message })
         }
     }
 
-    * show(req, resp){
-        return resp.json(req.authUser);
+    * save (req, resp) {
+        const   user = request.authUser,
+                input = req.only('firstname, lastname, email, password, profile_pic, public')
+        console.log(user);
+        input.password = yield Hash.make(input.password)
+        // yield Database
+        //     .table('users')
+        //     .where('email', 'virk')
+        //     .update('lastname', 'Virk')
+    }
+
+    * show (req, resp) {
+        return resp.json(req.authUser)
+    }
+
+    * store (req, resp) {
+        const input = req.only('email', 'password')
+        input.password = yield Hash.make(input.password)
+        const user = yield User.create(input)
+        console.log(input)
+        return resp.json(user.toJSON())
+    }
+
+    * update (req, resp) {
+
     }
 }
 
-module.exports = UserController;
+module.exports = UserController
