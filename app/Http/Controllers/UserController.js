@@ -49,7 +49,8 @@ class UserController {
 
     * getCampaign (req, resp){
         const user = request.authUser
-        console.log(user.campaigns().fetch())
+        const camps = user.campaigns().fetch();
+        return resp.json(camps.toJSON())
 
     }
 }
