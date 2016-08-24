@@ -21,7 +21,7 @@ class UserController {
     }
 
     * save (req, resp) {
-        const   user = request.authUser
+        const   user = req.authUser
                 input = req.only('firstname, lastname, email, password, profile_pic, public')
         console.log(user);
         input.password = yield Hash.make(input.password)
@@ -51,7 +51,7 @@ class UserController {
     * getCampaign (request, resp){
         const user = request.authUser
         const camps = user.campaigns().fetch();
-        return resp.json(camps.toJSON())
+        return resp.json(camps)
 
     }
 }
