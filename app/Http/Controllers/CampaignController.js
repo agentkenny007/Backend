@@ -6,10 +6,10 @@ class CampaignController {
 
 	* createCampaign (req, resp){
 		const user  = req.authUser
-		const input = req.only('title', 'description') 
+		const input = req.only('title', 'description')
+		input.user_id = user.id;
+		console.log(input);
 		const campaign = yield Campaign.create(input)
-		console.log(input)
-		yield user.campaigns().save(campaign)
         return resp.json(campaign);
 	}
 
