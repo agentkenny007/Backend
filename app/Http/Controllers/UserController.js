@@ -40,7 +40,7 @@ class UserController {
         input.password = yield Hash.make(input.password)
         const user = yield User.create(input)
         console.log(input)
-        
+
         return resp.json(user.toJSON())
     }
 
@@ -48,7 +48,7 @@ class UserController {
 
     }
 
-    * getCampaign (request, respond){
+    * getCampaign (request, resp){
         const user = request.authUser
         const camps = user.campaigns().fetch();
         return resp.json(camps.toJSON())
