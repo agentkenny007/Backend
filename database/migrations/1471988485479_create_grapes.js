@@ -7,7 +7,7 @@ class CreateGrapesSchema extends Schema {
   up () {
     this.create('grapes', (table) => {
       table.increments()
-      table.string('grapeObj')
+      table.text('grapeObj')
       table.integer('campaigns_id')
       table.timestamps()
     })
