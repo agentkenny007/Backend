@@ -48,12 +48,7 @@ class UserController {
 
     }
 
-    * getCampaign (request, resp){
-        const user = request.authUser
-        const camps = user.campaigns().fetch();
-        return resp.json(camps)
 
-    }
 }
 
 module.exports = UserController

@@ -12,7 +12,14 @@ class CampaignController {
 		const campaign = yield Campaign.create(input)
         return resp.json(campaign);
 	}
+ 
+    * index (request, resp){
+    const user = request.authUser
 
+    const camps = yield user.campaigns().fetch();
+    return resp.json(camps)
+
+    }
 	
 
 }

@@ -30,6 +30,7 @@ Route.post('/search', 'SentimentsController.get')
 
 Route.post('/user', 'UserController.update').middleware('auth')
 Route.post('/user/campaigns', 'UserController.save')
-Route.get('/user/campaigns', 'UserController.getCampaign').middleware('auth')
+Route.get('/campaigns', 'CampaignController.index').middleware('auth')
 Route.post('/campaigns', 'CampaignController.createCampaign').middleware('auth')
 Route.post('/grape', 'GrapeController.createGrape')
+Route.post('/grape/get', 'GrapeController.index')
