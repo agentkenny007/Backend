@@ -28,9 +28,9 @@ class GrapeController {
 
 	    const campGrapes = yield Database.from("grapes").where("campaigns_id", input.campaigns_id);
 	    let grapeJson = campGrapes;
-	    grapeJson.map((obj)=>{
-	    	obj.grapeObj = JSON.parse(obj.grapeObj);
-	    });
+	    // grapeJson.map((obj)=>{
+	    // 	obj.grapeObj = JSON.parse(obj.grapeObj);
+	    // });
 	    return resp.json(grapeJson)
 
     }
