@@ -2,19 +2,20 @@
 
 const Schema = use('Schema')
 
-class ModifyGrapeTableSchema extends Schema {
+class AddJsonGrapeColumnSchema extends Schema {
 
   up () {
     this.table('grapes', (table) => {
-    	table.dropColumn('grapeObj');
+      table.json("grapeObj");
     })
   }
 
   down () {
     this.table('grapes', (table) => {
-    	table.string('grapeObj');
+      table.dropColumn("grapeObj");
     })
   }
 
 }
-module.exports = ModifyGrapeTableSchema
+
+module.exports = AddJsonGrapeColumnSchema
