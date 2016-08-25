@@ -2,6 +2,8 @@
 
 const Lucid = use('Lucid')
 
+
+
 class Grapes extends Lucid {
 
   campaign () {
