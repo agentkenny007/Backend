@@ -24,3 +24,6 @@ lib-cov
 
 # Mac Only
 .DS_Store
+
+# The Development Database does not need commission
+database/development.sqlite
