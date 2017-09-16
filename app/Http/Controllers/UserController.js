@@ -21,19 +21,13 @@ class UserController {
     }
 
     * save (req, resp) {
-        const   user = req.authUser
+        const   user = req.authUser,
                 input = req.only('firstname, lastname, email, password, profile_pic, public')
         console.log(user);
         input.password = yield Hash.make(input.password)
-        // yield Database
-        //     .table('users')
-        //     .where('email', 'virk')
-        //     .update('lastname', 'Virk')
     }
 
-    * show (req, resp) {
-        return resp.json(req.authUser)
-    }
+    * show (req, resp) { return resp.json(req.authUser) }
 
     * store (req, resp) {
         const input = req.only('email', 'password')
